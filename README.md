@@ -63,3 +63,6 @@ return ListView.builder(
 ```
 
 - 1.首先,这个`itemBuilder`回调函数,每次都会被调用, 并且根据不同的条件返回不同的列表.对于偶数,为每个单词添加一个ListTile行,对于奇数,函数添加一个Divider小框,来显示,分离整个列表.
+- 2.偶数返回分割线
+- 3.当前item 的 index
+- 4.当下划之后,
