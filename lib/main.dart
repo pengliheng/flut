@@ -22,6 +22,12 @@ class MyApp extends StatelessWidget {
 }
 
 
+class RandomWords extends StatefulWidget {
+  // TODO Add build() method
+   @override
+   RandomWordsState createState() => new RandomWordsState();
+}
+
 class RandomWordsState extends State<RandomWords> {
   // TODO Add build() method
   final _suggestions = <WordPair>[];
@@ -32,12 +38,4 @@ class RandomWordsState extends State<RandomWords> {
      return Text(wordPair.asPascalCase);
    }
   //  RandomWordsState createState() => new RandomWordsState();
-}
-
-
-
-class RandomWords extends StatefulWidget {
-  // TODO Add build() method
-   @override
-   RandomWordsState createState() => new RandomWordsState();
 }
