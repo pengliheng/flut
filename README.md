@@ -1,6 +1,7 @@
 ### Flutter 项目试水
 
-
+### keyword
+- Scaffold: 脚手架
 
 #### code解释
 ```dart
@@ -32,3 +33,33 @@ const int n2 = Func(); // 错误
 
 #### `@override` 覆盖顶级常量
 java @override是什么意思 @Override简单理解就是这个句话下边的方法是继承父类的方法，对其覆盖Overload是重载的意思，Override是覆盖的意思，也就是重写。 重载Overload表示同一个类中可以有多个名称相同的方法，但这些方法的参数列表各不相同（即参数个数或类型不同）。
+
+#### _下划线做变量开头
+代表它对其库是私有的
+
+
+### dart 中的类型推断
+
+```dart
+var str = '2134'; // 推断为int类型
+str =  234567;    // A value of type 'int' can't be assigned to a variable of type 'String'
+List arr = [1,2,3,4,6,7];
+arr = 23456;      // A value of type 'int' can't be assigned to a variable of type 'List'
+```
+
+
+### code 案例
+```dart
+return ListView.builder(
+  padding: const EdgeInsets.all(16.0),
+  itemBuilder: /*1*/(context, i) {
+    if(i.isOdd) return Divider(); /*2*/    // 分割线
+    final index = i ~/ 2;/*3*/   // 获得当前是第几个列表
+    if(index >= _suggestions.length) {
+      _suggestions.addAll(generateWordPairs().take(10));  /*4*/
+    }
+    return _buildRow(_suggestions[index]);
+  });
+```
+
+- 1.首先,这个`itemBuilder`回调函数,每次都会被调用, 并且根据不同的条件返回不同的列表.对于偶数,为每个单词添加一个ListTile行,对于奇数,函数添加一个Divider小框,来显示,分离整个列表.
