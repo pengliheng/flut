@@ -22,11 +22,11 @@ class MyApp extends StatelessWidget {
                     children: <Widget>[
                         new Expanded(
                             flex: 1,
-                            child: new Center(
-                                child: new Container(
+                            child: new Container(
+                                color: Colors.lightBlueAccent,
+                                child: new Center(
                                     child: new Text('test'),
-                                    color: Colors.lightBlueAccent,
-                                )
+                                ),
                             )
                         ),
                         new Keyborad()

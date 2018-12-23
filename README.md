@@ -69,14 +69,23 @@ return ListView.builder(
 
 
 #### Flutter 的分层设计 -> 简直不要太方便...
-顶级组件  Row, Column   =>  <el-row/> 
-次一级组件  Container   => <div></div>
+- 顶级组件  Row, Column   =>  <el-row/> 
+  合理运用顶级组件,可快速构建应用
+
+- 基础组件  Container   => <div></div>
+  可以定制任何自己❤️的样式
 
 
 
 
 #### Flutter's Layers
-Material 
-Widgets
-Rendering
-dart:ui
+- Material 
+- Widgets
+- Rendering
+- dart:ui
+
+
+
+
+### Reference
+[Flutter 中文网]https://flutterchina.club/tutorials/layout/
