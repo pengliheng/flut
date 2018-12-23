@@ -66,3 +66,17 @@ return ListView.builder(
 - 2.偶数返回分割线
 - 3.当前item 的 index
 - 4.当下划之后,
+
+
+#### Flutter 的分层设计 -> 简直不要太方便...
+顶级组件  Row, Column   =>  <el-row/> 
+次一级组件  Container   => <div></div>
+
+
+
+
+#### Flutter's Layers
+Material 
+Widgets
+Rendering
+dart:ui
