@@ -2,15 +2,16 @@ import 'package:flutter/material.dart';
 
 void main() {
     runApp(MyApp());
-} 
+}
 
 class MyApp extends StatelessWidget {
+    String view = '';
     @override
     Widget build(BuildContext context) {
         return MaterialApp(
             title: 'StartUp Name Generator',
             theme: new ThemeData(
-              primaryColor: Colors.white,
+              primaryColor: Colors.red,
             ),
             home: Scaffold(
                 appBar: AppBar(
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
                             child: new Container(
                                 color: Colors.lightBlueAccent,
                                 child: new Center(
-                                    child: new Text('test'),
+                                    child: new Text('>  $view'),
                                 ),
                             )
                         ),
@@ -61,7 +62,7 @@ class Keyborad extends StatelessWidget {
                 ),
                 // margin: const EdgeInsets.fromLTRB(0, 400, 0, 0),
                 // width: 48.0,
-                height: 300.0,
+                height: 400.0,
                 child: new Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: <Widget>[
@@ -115,6 +116,7 @@ class CustomCard extends StatelessWidget {
     CustomCard({@required this.index, @required this.onPress});
     final index;
     final Function onPress;
+
     @override
     Widget build(BuildContext context) {
         return Card(
