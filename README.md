@@ -48,6 +48,151 @@ arr = 23456;      // A value of type 'int' can't be assigned to a variable of ty
 ```
 
 
+### dart 中的参数传递
+当你希望传递的是对象的时候. 调用这个函数需要传递的参数是可选的. device参数可选不传
+```dart
+void isNoble({int atomicNumber ,String device='12'}) {
+  print('3e23$device');
+  assert(1==2);
+} 
+
+main(List<String> args) {
+  isNoble(atomicNumber: 23245');
+}
+```
+
+`{}`只能放置于参数的两头,如果想要单独一个参数作为对象来传递,
+```
+Map<String,String> gifts = const {
+  'first': 'paper'
+}
+```
+
+
+如果传递的不是对象参数,这个时候可以有可选参数
+```dart
+void isNoble(int atomicNumber,[String device='12']) {
+  print('3e23');
+  assert(1==2);
+}
+main(List<String> args) {
+  isNoble(23245);  // 如果不传参数,那么第二个参数 device就会变成默认参数12
+  isNoble(23245,'sdfasdf');   // 如果传递参数,那个sdfgsdfa就会取代第二个参数的默认值
+}
+```
+
+传递List数组以及Map对象的时候
+```dart
+void doStuff(List<int> list, Map<String,int> gifts){
+  print('list:  $list');
+  print(list);
+  print('gifts: $gifts');
+  print(gifts);
+}
+
+main(List<String> args) {
+  doStuff([1,2,3,4,5],{
+    'sdf':1234,
+    'wer':1234,
+    'rger':1234,
+  });
+}
+```
+
+
+以对象形式传递参数
+
+```dart
+void doStuff({List<int> list=const[1,2,3,5,6], Map<String,int> gifts=const{
+  'sdf':1234,
+}}){
+  print('list:  $list');
+  print(list);
+  print('gifts: $gifts');
+  print(gifts);
+}
+main(List<String> args) {
+  doStuff(
+    list:[1,2,3,4,5],
+    gifts:{
+      'sdf':1234,
+      'wer':1234,
+      'rger':1234,
+    }
+  );
+}
+```
+
+
+### dart位移运算
+```dart
+final value = 0x22;     // 0010 0010
+final bitmask = 0x0f;   // 0000 1111
+
+assert((value & bitmask) == 0x02); // AND       => 0000 0010 => 0x02
+assert((value & ~bitmask) == 0x20); // AND NOT  => 0010 0000 => 0x20
+assert((value | bitmask) == 0x2f); // OR        => 0010 1111 => 0x2f
+assert((value ^ bitmask) == 0x2d); // XOR       => 0010 1101 => 0x2d
+assert((value << 4) == 0x220); // Shift left    => 0010 0010 0000 => 0x220
+assert((value >> 4) == 0x02); // Shift right    => 0000 0010 => 0x02
+```
+
+### dart 中的符号
+```dart
+a = value;      // 
+b ??= value;    // 仅仅当b为null的时候,赋值
+```
+
+### dart 中的未定义
+相比于JavaScript,不止强了一点半星
+```dart
+var test;
+print(test);    // null
+
+var name=21;
+name = name ?? 'guse';   // 21
+
+var name;
+name = name ?? 'guse';   // 'guse'
+
+```
+
+### dart 中的链式调用
+```dart
+class A {
+  void aaa (){
+    print('aaa');
+  }
+  void bbb (){
+    print('bbb');
+  }
+  void ccc (){
+    print('ccc');
+  }
+  void ddd (){
+    print('ddd');
+  }
+  void eee (){
+    print('eee');
+  }
+  void baz(){}
+}
+var a = A();
+main(List<String> args) {
+  a
+    ..aaa()
+    ..bbb()
+    ..ccc()
+    ..ddd()
+    ..eee()
+    ..bbb();
+};
+```
+
+
+
+
+
 ### code 案例
 ```dart
 return ListView.builder(
