@@ -180,14 +180,190 @@ class A {
 var a = A();
 main(List<String> args) {
   a
-    ..aaa()
-    ..bbb()
-    ..ccc()
-    ..ddd()
-    ..eee()
-    ..bbb();
+    ..aaa()       // aaa
+    ..bbb()       // bbb
+    ..ccc()       // ccc
+    ..ddd()       // ddd
+    ..eee()       // eee
+    ..bbb();      // bbb
 };
 ```
+
+
+
+### dart 中的类
+```dart
+import 'dart:math';
+
+class Point {
+  final num x;
+  final num y;
+  final num distanceFromOrigin;
+
+// Point 的构造器
+  Point(x,y)
+    : x = x,
+      y = y,
+      distanceFromOrigin = sqrt(x*x+y*y);
+}
+
+
+main(List<String> args) {
+  var p = new Point(2,3);
+  print(p.distanceFromOrigin);
+}
+```
+
+
+
+### 重定向的构造器
+```dart
+// 重定向的构造函数
+class Point {
+  num x,y;
+  // The Main construcgtor for this class.
+  // 这个类的主构造器
+  Point(this.x, this.y);
+  // Delegates to the main constructor.
+  // 委托给构造函数
+  Point.alongXaxis(num x){
+    print(x);
+  } 
+}
+dynamic point = Point(1,2);   // 构造器未声明可用 var 但不能是const
+main(List<String> args) {
+  print(point.aaa());
+}
+```
+
+
+### 不可改变的构造器
+```dart
+// 一直不变的构造器
+class ImmutablePoint {
+  static final ImmutablePoint origin = 
+    const ImmutablePoint(0, 0);
+  final num x,y;
+  const ImmutablePoint(this.x, this.y);
+   aaa(){
+    print('aaa');
+    return '2345';
+  }
+}
+const point = ImmutablePoint(1,2);  // 由于是const的构造器,所以只能用const来命名, 或者var
+main(List<String> args) {
+  print(point.aaa());
+}
+```
+
+
+
+### 工厂构造函数
+```dart
+// 工厂构造器
+class Logger {
+  final String name;
+  bool mute = false;
+  // _cache is library-private, thanks to the _ in front of its name.
+  static final Map<String, Logger> _cache = <String, Logger>{};
+  factory Logger(String name) {
+    if (_cache.containsKey(name)) {
+      return _cache[name];
+    } else {
+      final logger = Logger._internal(name);
+      _cache[name] = logger;
+      return logger;
+    }
+  }
+  Logger._internal(this.name);
+  void log(String msg) {
+    if(!mute) {
+      print(msg);
+    }
+  }
+}
+var logger = Logger('UI');
+main(List<String> args) {
+  logger.log('asfdbg');
+}
+```
+
+
+
+### dart 中的 class 中的方法
+```dart
+import 'dart:math';
+class Point {
+  num x,y;
+  // dart 的构造函数
+  Point(this.x, this.y);
+  num distanceTo(Point other) {
+    var dx = x - other.x;
+    var dy = y - other.y;
+    return sqrt(dx*dx + dy*dy);
+  }
+}
+main(List<String> args) {
+  var point = new Point(0, 0);
+  print(point.distanceTo( Point(3,4)));
+}
+```
+
+
+### @override -> 子类方法可以覆盖父类方法
+```dart
+class Television {
+  void turnOn() {
+    _illuminateDisplay();
+    _activateIrSensor();
+  }
+  // ···
+}
+
+class SmartTelevision extends Television {
+  void turnOn() {
+    super.turnOn();
+    _bootNetworkInterface();
+    _initializeMemory();
+    _upgradeApps();
+  }
+
+// 子类方法可以覆盖父类
+  @override
+  void turnOn(){
+    //
+  }
+  // ···
+}
+```
+
+
+### 泛型
+```dart
+// 接受字符串key值
+// 可被<String, Object> 设置
+abstract class ObjectCache {
+  Object getByKey(String key);
+  void setByKey(String key, Object value);
+}
+// 接受字符串 的key值
+// 可被<String, String> 设置
+abstract class StringCache {
+  Object getByKey(String key);
+  void setByKey(String key, String value);
+}
+// 下面你决定你想要一个特殊数字版本
+// 泛型能省去你的所有的创建这些接口的麻烦. 相反,你能创建一个带有类型限制的接口
+abstract class Cache<T> {
+  T getByKey(String key);
+  void setByKey(String key, T value);
+}
+// 上面的代码, T 是一个替代类型,它是一个占位符,您可以将其视为开发人员稍后定义的类型.
+```
+
+
+
+
 
 
 
@@ -234,3 +410,10 @@ return ListView.builder(
 
 ### Reference
 [Flutter 中文网]https://flutterchina.club/tutorials/layout/
+
+
+
+### 阶级跃迁
+天天敲代码.
+在我的想象中,我是一位上将,因为阶级的固化,因此我只能想像,不知不觉演了起来.定制了一套军装,买了个假身份证,我开始深入的演了起来,进到某军区,对着门卫,趾高气扬的走了过去,说:"你不知道我是谁?"
+这是我唯一获得**阶级跃迁**的机会.如果努力不能获得提升,那又为什么努力.
