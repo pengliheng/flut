@@ -1,9 +1,7 @@
-### Flutter 项目试水
-
 ### keyword
 - Scaffold: 脚手架
 
-#### code解释
+### code
 ```dart
 class RandomWordsState extends State<RandomWords> {
   // TODO Add build() method
@@ -18,7 +16,7 @@ class RandomWordsState extends State<RandomWords> {
 }
 ```
 
-#### final and const
+### final and const
 如果你永远不会改变变量,那么用`final`或者`const`,而不是`var`或者定义其他`String Array`特定类型.一个`final`变量只能被设置一次,而const变量则是编译时的常量,它是隐式的`final`
 举个例子
 ```dart
@@ -31,10 +29,10 @@ const int n2 = Func(); // 错误
 
 
 
-#### `@override` 覆盖顶级常量
+### `@override` 覆盖顶级常量
 java @override是什么意思 @Override简单理解就是这个句话下边的方法是继承父类的方法，对其覆盖Overload是重载的意思，Override是覆盖的意思，也就是重写。 重载Overload表示同一个类中可以有多个名称相同的方法，但这些方法的参数列表各不相同（即参数个数或类型不同）。
 
-#### _下划线做变量开头
+### _下划线做变量开头
 代表它对其库是私有的
 
 
@@ -388,8 +386,7 @@ return ListView.builder(
 - 3.当前item 的 index
 - 4.当下划之后,
 
-
-#### Flutter 的分层设计 -> 简直不要太方便...
+### Flutter 的分层设计 -> 简直不要太方便...
 - 顶级组件  Row, Column   =>  <el-row/> 
   合理运用顶级组件,可快速构建应用
 
@@ -399,7 +396,7 @@ return ListView.builder(
 
 
 
-#### Flutter's Layers
+### Flutter's Layers
 - Material 
 - Widgets
 - Rendering
