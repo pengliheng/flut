@@ -116,9 +116,9 @@ class Keyborad extends StatelessWidget {
                             'val':'7',
                             'func': add,
                         },'4','1','.']),
-                        new KeyboradColumn(arr: ['8','5','2','0'], add: add),
-                        new KeyboradColumn(arr: ['9','6','3','='], add: add),
-                        new KeyboradColumn(arr: ['Del','+','-','×','÷'], add: add)
+                        new KeyboradColumn(arr: ['8','5','2','0']),
+                        new KeyboradColumn(arr: ['9','6','3','=']),
+                        new KeyboradColumn(arr: ['Del','+','-','×','÷'])
                     ],
                 ),
             ),
@@ -138,7 +138,6 @@ class KeyboradColumn extends StatelessWidget {
                     child: Container(
                         child: CustomCard(
                             index: e.val,
-                            add: add,
                         ),
                         color: Colors.white,
                     )
