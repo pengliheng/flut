@@ -41,7 +41,9 @@ class MyApp extends StatelessWidget {
 // 模块三
 class ButtonColumn extends StatelessWidget {
     @override
-    @required({Icon: this.icon, Label: this.label})
+    ButtonColumn({@required this.icon, @required this.label});
+    final Icon
+    final label
     Widget build(BuildContext context) {
         Color color = Theme.of(context).primaryColor;
         return Column(
