@@ -42,15 +42,28 @@ class DetailContent extends StatelessWidget {
   @override
   Widget build(BuildContext context){
 
-    Column featureItemContent(IconData icon, String label, String time){
-      IconData icon;
-      String label;
-      var time;
+    Column featureItemContent({IconData icon, String label, String time}){
       return Column(
         children: <Widget>[
-          // new Icon(icon, color: Colors.green[500]),
-          // Text(label),
-          Text(time)
+          new Icon(icon, color: Colors.green[500]),
+          Container(
+            padding: EdgeInsets.all(5),
+            child: Text(
+              label,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(10),
+            child: Text(
+              time,
+              style: TextStyle(
+                fontWeight: FontWeight.w900
+              ),
+            )
+          )
         ]
       );
     };
@@ -86,15 +99,15 @@ class DetailContent extends StatelessWidget {
             ],
           ),
           Container(
-            padding: const EdgeInsets.fromLTRB(0,32,0,0),
+            padding: const EdgeInsets.fromLTRB(0,50,0,0),
             // color: Colors.blue[100],
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                featureItemContent(Icons.picture_as_pdf, 'PREP:',"25 min"),
-                // featureItemContent(icon: Icons.timelapse, label: 'PREP:',time:"25 min"),
-                // featureItemContent(icon: Icons.feedback, label: 'PREP:',time:"25 min"),
+                featureItemContent(icon: Icons.picture_as_pdf, label: 'PREP:',time:"25 min"),
+                featureItemContent(icon: Icons.timelapse, label: 'COOK:',time:"1 hr"),
+                featureItemContent(icon: Icons.feedback, label: 'FEEDS:',time:"4 - 6"),
               ],
             ),
           )
