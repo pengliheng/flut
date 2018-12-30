@@ -40,7 +40,7 @@ class DetailContent extends StatelessWidget {
   @override
   Widget build(BuildContext context){
     return Container(
-      padding: const EdgeInsets.fromLTRB(32,0,32,10),
+      padding: const EdgeInsets.fromLTRB(50,0,50,10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -68,20 +68,19 @@ class DetailContent extends StatelessWidget {
               ),
             ],
           ),
-          Row(
-            children: <Widget>[
-              Container(
-                padding: const EdgeInsets.fromLTRB(0,32,0,0),
-                child: Column(
-                  children: <Widget>[
-                    new Icon(Icons.picture_as_pdf, color: Colors.green[500]),
-                    Text("PREP:"),
-                    Text("25 min")
-                  ]
-                )
-              ),
-            ],
-          ),
+          Container(
+            padding: const EdgeInsets.fromLTRB(0,32,0,0),
+            // color: Colors.blue[100],
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                FeatureItemContent(icon: Icons.picture_as_pdf, label: 'PREP:',time:"25 min"),
+                FeatureItemContent(),
+                FeatureItemContent(),
+              ],
+            ),
+          )
         ],
       ),
     );
@@ -99,7 +98,25 @@ class FeatureItemContent extends StatefulWidget {
 
 class _FeatureItemContent extends State<FeatureItemContent> {
   
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        new Icon(Icons.picture_as_pdf, color: Colors.green[500]),
+        Text("PREP:"),
+        Text("25 min")
+      ]
+    );
+  }
 }
+
+
+
+
+
+
+
+
 
 
 // 中间的段落模块
@@ -110,7 +127,7 @@ class TextContent extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(32.0,32,32.0,0.0),
       child: Text(
         '''
-    Lake Oeschinen lies at the foot of the Blüemlisalp in the Bernese Alps. Situated 1,578 meters above sea level, it is one of the larger Alpine Lakes. A gondola ride from Kandersteg, followed by a half-hour walk through pastures and pine forest, leads you to the lake, which warms to 20 degrees Celsius in the summer. Activities enjoyed here include rowing, and riding the summer toboggan run.
+    Lake Oeschinen lies at the foot of the Blüemlisalp in the Bernese Alps. Situated 1,578 meters above sea level, it is one of the larger Alpine Lakes. A gondola ride from Kandersteg, followed by a half-hour walk through pastures and pine forest, leads you to the lake, which warms to 20 degrees Celsius in the summer. Activities enjoyed here include rowing, and riding.
         ''',
         softWrap: true,
         style: TextStyle(
