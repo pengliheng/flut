@@ -37,10 +37,25 @@ class MyApp extends StatelessWidget {
 
 
 class DetailContent extends StatelessWidget {
-  FeatureItemContent
+  
 
   @override
   Widget build(BuildContext context){
+
+    Column featureItemContent({IconData icon, String label, String time}){
+      IconData icon;
+      String label;
+      String time;
+      return Column(
+        children: <Widget>[
+          new Icon(icon, color: Colors.green[500]),
+          Text(label),
+          Text(time)
+        ]
+      );
+    };
+
+    
     return Container(
       padding: const EdgeInsets.fromLTRB(50,0,50,10),
       child: Column(
@@ -77,9 +92,9 @@ class DetailContent extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                FeatureItemContent(icon: Icons.picture_as_pdf, label: 'PREP:',time:"25 min"),
-                FeatureItemContent(icon: Icons.timelapse, label: 'PREP:',time:"25 min"),
-                FeatureItemContent(icon: Icons.feedback, label: 'PREP:',time:"25 min"),
+                featureItemContent(icon: Icons.picture_as_pdf, label: 'PREP:',time:"25 min"),
+                featureItemContent(icon: Icons.timelapse, label: 'PREP:',time:"25 min"),
+                featureItemContent(icon: Icons.feedback, label: 'PREP:',time:"25 min"),
               ],
             ),
           )
@@ -88,43 +103,6 @@ class DetailContent extends StatelessWidget {
     );
   }
 }
-
-
-
-
-class FeatureItemContent extends StatefulWidget {
-  FeatureItemContent({@required this.icon,@required this.time,@required this.label});
-  var icon;
-  var time;
-  var label;
-  @override
-  _FeatureItemContent createState() => new _FeatureItemContent(icon: this.icon, label: this.label,time:this.time);
-}
-
-
-class _FeatureItemContent extends State<FeatureItemContent> {
-  _FeatureItemContent({@required this.icon,@required this.time,@required this.label});
-  var icon;
-  var time;
-  var label;
-  @override
-  Widget build(BuildContext context) {
-    print(this.icon);
-    return Column(
-      children: <Widget>[
-        new Icon(this.icon, color: Colors.green[500]),
-        Text("PREP:"),
-        Text("25 min")
-      ]
-    );
-  }
-}
-
-
-
-
-
-
 
 
 
