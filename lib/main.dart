@@ -90,6 +90,18 @@ class DetailContent extends StatelessWidget {
 
 
 
+
+class FeatureItemContent extends StatefulWidget {
+  @override
+  _FeatureItemContent createState() => new _FeatureItemContent();
+}
+
+
+class _FeatureItemContent extends State<FeatureItemContent> {
+  
+}
+
+
 // 中间的段落模块
 class TextContent extends StatelessWidget {
   @override
