@@ -36,6 +36,14 @@ class MyApp extends StatelessWidget {
 }
 
 
-class TitleSection extends StatelessWidget {
-    @
+// 底部键盘组件
+class Keyborad extends StatelessWidget {
+    @override
+    Widget build(BuildContext context) {
+        return new Container(
+            color: const Color(0xFFFFFFFF),   
+            child: new Container(),
+        );
+    }
 }
+   
