@@ -8,7 +8,7 @@
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
-
+// 主模块
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Leayout demo',
       theme: ThemeData(
-        primarySwatch: Colors.red,
+        primarySwatch: Colors.blue,
       ),
       home: Scaffold(
           appBar: AppBar(
@@ -28,6 +28,8 @@ class MyApp extends StatelessWidget {
                     'assets/lake.jpg',
                     fit: BoxFit.cover,
                 ),
+                TitleSection(),
+                ButtonColumn(),
               ]
           ),
       ),
@@ -36,13 +38,68 @@ class MyApp extends StatelessWidget {
 }
 
 
-// 底部键盘组件
-class Keyborad extends StatelessWidget {
+// 模块三
+class ButtonColumn extends StatelessWidget {
+    @override
+    @required({Icon: this.icon, Label: this.label})
+    Widget build(BuildContext context) {
+        Color color = Theme.of(context).primaryColor;
+        return Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+                Icon(icon, color: color),
+                Container(
+                    margin: const EdgeInsets.only(top: 8.0),
+                    child: Text(
+                        label,
+                        style: TextStyle(
+                            fontSize: 12.0,
+                            fontWeight: FontWeight.w400,
+                            color: color,
+                        ),
+                    ),
+                ),
+            ],
+        );
+    }
+}
+   
+// 模块二
+class TitleSection extends StatelessWidget {
     @override
     Widget build(BuildContext context) {
         return new Container(
-            color: const Color(0xFFFFFFFF),   
-            child: new Container(),
+            padding: const EdgeInsets.all(32.0),
+            child: Row(children: <Widget>[
+                Expanded(
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                            Container(
+                                padding: const EdgeInsets.only(bottom: 8.0),
+                                child: Text(
+                                    'Oeschinen Lake Campground',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                    ),
+                                ),
+                            ),
+                            Text(
+                                'Kandersteg, Switzerland',
+                                style: TextStyle(
+                                    color: Colors.grey[500]
+                                ),
+                            )
+                        ],
+                    ),
+                ),
+                Icon(
+                    Icons.star,
+                    color: Colors.red[500],
+                ),
+                Text('41')
+            ],),
         );
     }
 }
