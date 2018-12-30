@@ -29,7 +29,8 @@ class MyApp extends StatelessWidget {
                     fit: BoxFit.cover,
                 ),
                 TitleSection(),
-                ButtonColumn(),
+                ButtonSection(),
+                TextSection(),
               ]
           ),
       ),
@@ -37,24 +38,82 @@ class MyApp extends StatelessWidget {
   }
 }
 
+// 文字模块
+class TextSection extends StatelessWidget {
+    @override
+    Widget build(BuildContext context){
+        return Container(
+            padding: const EdgeInsets.all(32.0),
+            child: Text(
+                '''
+                Lake Oeschinen lies at the foot of the Blüemlisalp in the Bernese Alps. Situated 1,578 meters above sea level, it is one of the larger Alpine Lakes. A gondola ride from Kandersteg, followed by a half-hour walk through pastures and pine forest, leads you to the lake, which warms to 20 degrees Celsius in the summer. Activities enjoyed here include rowing, and riding the summer toboggan run.
+                ''',
+                softWrap: true,
+            ),
+        );
+    }
+}
+
+// 模块四
+class ButtonSection extends StatelessWidget {
+    @override
+    // ButtonColumn({@required this.icon, @required this.label});
+    // final icon
+    // final label
+    Widget build(BuildContext context) {
+        Column buildButtonColumn(IconData icon, String label){
+            Color color = Theme.of(context).primaryColor;
+            return Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                    Icon(icon, color: color),
+                    Container(
+                        margin: const EdgeInsets.only(top: 8.0),
+                        child: Text(
+                            label,
+                            style: TextStyle(
+                                fontSize: 12.0,
+                                fontWeight: FontWeight.w400,
+                                color: color,
+                            ),
+                        ),
+                    ),
+                ],
+            );
+        };
+
+        return Container(
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                    buildButtonColumn(Icons.call,'CALL'),
+                    buildButtonColumn(Icons.near_me,'ROUTE'),
+                    buildButtonColumn(Icons.share,'SHARE'),
+                ],
+            )
+        );
+    }
+}
+
 
 // 模块三
 class ButtonColumn extends StatelessWidget {
     @override
-    ButtonColumn({@required this.icon, @required this.label});
-    final icon
-    final label
+    var icon;
+    var label;
+    ButtonColumn(@required this.icon, @required this.label);
     Widget build(BuildContext context) {
         Color color = Theme.of(context).primaryColor;
         return Column(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-                Icon(icon: this.icon, color: color),
+                Icon(this.icon, color: color),
                 Container(
                     margin: const EdgeInsets.only(top: 8.0),
                     child: Text(
-                        label: this.label,
+                        this.label,
                         style: TextStyle(
                             fontSize: 12.0,
                             fontWeight: FontWeight.w400,
@@ -66,7 +125,7 @@ class ButtonColumn extends StatelessWidget {
         );
     }
 }
-   
+
 // 模块二
 class TitleSection extends StatelessWidget {
     @override
