@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
 class ButtonColumn extends StatelessWidget {
     @override
     ButtonColumn({@required this.icon, @required this.label});
-    final Icon
+    final icon
     final label
     Widget build(BuildContext context) {
         Color color = Theme.of(context).primaryColor;
@@ -50,11 +50,11 @@ class ButtonColumn extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-                Icon(icon, color: color),
+                Icon(icon: this.icon, color: color),
                 Container(
                     margin: const EdgeInsets.only(top: 8.0),
                     child: Text(
-                        label,
+                        label: this.label,
                         style: TextStyle(
                             fontSize: 12.0,
                             fontWeight: FontWeight.w400,
