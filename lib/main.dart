@@ -42,14 +42,14 @@ class DetailContent extends StatelessWidget {
   @override
   Widget build(BuildContext context){
 
-    Column featureItemContent({IconData icon, String label, String time}){
+    Column featureItemContent(IconData icon, String label, String time){
       IconData icon;
       String label;
-      String time;
+      var time;
       return Column(
         children: <Widget>[
-          new Icon(icon, color: Colors.green[500]),
-          Text(label),
+          // new Icon(icon, color: Colors.green[500]),
+          // Text(label),
           Text(time)
         ]
       );
@@ -92,9 +92,9 @@ class DetailContent extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                featureItemContent(icon: Icons.picture_as_pdf, label: 'PREP:',time:"25 min"),
-                featureItemContent(icon: Icons.timelapse, label: 'PREP:',time:"25 min"),
-                featureItemContent(icon: Icons.feedback, label: 'PREP:',time:"25 min"),
+                featureItemContent(Icons.picture_as_pdf, 'PREP:',"25 min"),
+                // featureItemContent(icon: Icons.timelapse, label: 'PREP:',time:"25 min"),
+                // featureItemContent(icon: Icons.feedback, label: 'PREP:',time:"25 min"),
               ],
             ),
           )
