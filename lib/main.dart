@@ -8,26 +8,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text('data'),
+          title: Text('上传图片'),
         ),
-        body: Center(
-          // width: 640,
-          // color: Colors.red,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Text(
-                'Strawberry Pavlova',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 26,
-                ),
-              ),
-              new TextContent(),
-              new DetailContent(),
-            ],
-          ),
-        ),
+        body: ListContainer(count: 10),
       )
     );
   }
@@ -36,93 +19,69 @@ class MyApp extends StatelessWidget {
 
 
 
-class DetailContent extends StatelessWidget {
-  
+class ListContainer extends StatelessWidget {
+
+  ListContainer({@required this.count});
+  final count;
+  // List<Container> _buildGridTileList(int count) {
+  //   return new List<Container>.generate(count, 
+  //     (int index) => new Container(
+  //       // width: 100,
+  //       child: new Row(
+  //         children: <Widget>[
+  //           imageContent(index),
+  //           imageContent(index+1),
+  //           imageContent(index+2),
+            
+  //         ],
+  //       )
+  //     )
+  //   );
+  // }
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
 
-    Column featureItemContent(IconData icon, String label, String time){
-      IconData icon;
-      String label;
-      var time;
-      return Column(
-        children: <Widget>[
-          // new Icon(icon, color: Colors.green[500]),
-          // Text(label),
-          Text(time)
-        ]
-      );
-    };
-
-    
-    return Container(
-      padding: const EdgeInsets.fromLTRB(50,0,50,10),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              new Expanded(
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  children: <Widget>[
-                    new Icon(Icons.star, color: Colors.green[500]),
-                    new Icon(Icons.star, color: Colors.green[500]),
-                    new Icon(Icons.star, color: Colors.black),
-                    new Icon(Icons.star, color: Colors.black),
-                    new Icon(Icons.star, color: Colors.black),
-                  ]
-                )
-              ),
-              Text(
-                '170 Reviews',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                ),
-              ),
-            ],
-          ),
-          Container(
-            padding: const EdgeInsets.fromLTRB(0,32,0,0),
-            // color: Colors.blue[100],
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                featureItemContent(Icons.picture_as_pdf, 'PREP:',"25 min"),
-                // featureItemContent(icon: Icons.timelapse, label: 'PREP:',time:"25 min"),
-                // featureItemContent(icon: Icons.feedback, label: 'PREP:',time:"25 min"),
-              ],
-            ),
+    double width = MediaQuery.of(context).size.width;
+    imageContent(int index) {
+      return new Expanded(
+        flex: 1,
+        child: Container(
+          height: 150,
+          padding: EdgeInsets.all(2),
+          child: Image.asset(
+            'assets/${index+1}.jpg',
+            fit: BoxFit.cover,
           )
+        )
+      );
+    }
+
+    _buildGridTileRow(int index) {
+      return new Row(
+        children: <Widget>[
+          imageContent(3 * index),
+          imageContent(3 * index + 1),
+          imageContent(3 * index + 2),
         ],
-      ),
-    );
-  }
-}
+      );
+    }
 
-
-
-
-// 中间的段落模块
-class TextContent extends StatelessWidget {
-  @override
-  Widget build(BuildContext context){
-    return Container(
-      padding: const EdgeInsets.fromLTRB(32.0,32,32.0,0.0),
-      child: Text(
-        '''
-    Lake Oeschinen lies at the foot of the Blüemlisalp in the Bernese Alps. Situated 1,578 meters above sea level, it is one of the larger Alpine Lakes. A gondola ride from Kandersteg, followed by a half-hour walk through pastures and pine forest, leads you to the lake, which warms to 20 degrees Celsius in the summer. Activities enjoyed here include rowing, and riding.
-        ''',
-        softWrap: true,
-        style: TextStyle(
-          fontSize: 16,
-        ),
-        textAlign: TextAlign.justify,
-      ),
+    _buildGridTileList(int count) {
+      final cols = 1 + count~/3;
+      return new List<Container>.generate(cols, 
+        (int index) => new Container(
+          // width: 100,
+          child: _buildGridTileRow(index)
+        )
+      );
+    }
+    return new Container(
+      padding: EdgeInsets.all(2),
+      color: Colors.red,
+      child: ListView(
+        children: _buildGridTileList(this.count)
+      )
     );
   }
 }
