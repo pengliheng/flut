@@ -58,7 +58,7 @@ class ListContainer extends StatelessWidget {
                   color: Colors.white,
                   child: Center(
                     child: Container(
-                      child: Icons.add
+                      icon: Icons.add
                     ),
                   ),
                 )
