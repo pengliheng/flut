@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(
           title: Text('上传图片'),
         ),
-        body: ListContainer(count: 10),
+        body: ListContainer(count: 8),
       )
     );
   }
@@ -33,7 +33,7 @@ class ListContainer extends StatelessWidget {
           height: ((vw - eachItemPaddingValue*2)/3),
           padding: EdgeInsets.all(eachItemPaddingValue),
           child: isBlock ? Image.asset(
-            'assets/${index+1}.jpg',
+            'assets/${index}.jpg',
             fit: BoxFit.cover,
           ) : Container()
         )
@@ -53,13 +53,13 @@ class ListContainer extends StatelessWidget {
               flex: 1,
               child: Container(
                 height: ((vw - eachItemPaddingValue*2)/3),
-                padding: EdgeInsets.all(eachItemPaddingValue),
+                // padding: EdgeInsets.all(eachItemPaddingValue),
                 child: Container(
-                  color: Colors.white,
-                  child: Center(
-                    child: Container(
-                      icon: Icons.add
-                    ),
+                  // color: Colors.white,
+                  child: Icon(
+                    Icons.add_box,
+                    color: Colors.white,
+                    size: 130.0,
                   ),
                 )
               )
@@ -82,7 +82,7 @@ class ListContainer extends StatelessWidget {
      * return             widget
      */
     _buildGridTileList(int count) {
-      final cols = 1 + count~/3;
+      final cols = (1+count)~/3;
       return new List<Container>.generate(
         cols, 
         (int index) => new Container(         // 循环多少行
