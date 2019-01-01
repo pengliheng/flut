@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(
           title: Text('上传图片'),
         ),
-        body: ListContainer(count: 8),
+        body: ListContainer(count: 9),
       )
     );
   }
@@ -26,6 +26,7 @@ class ListContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double vw = MediaQuery.of(context).size.width;
+    // 图片容器
     imageContent(int index, bool isBlock, [bool isAddBtn = false]) {
       return new Expanded(
         flex: 1,
@@ -40,6 +41,7 @@ class ListContainer extends StatelessWidget {
       );
     }
 
+    // 每一列
     _buildGridTileRow(int cols, int total) {
       List<Widget> ListMyWidgets(){
         List<Widget> list = new List();
@@ -75,12 +77,7 @@ class ListContainer extends StatelessWidget {
       );
     }
 
-    /* 
-     * require            count                     总数
-     * todo               loop                      传递参数 -> 
-     * througt            当前行 个数                 传递参数 -> 
-     * return             widget
-     */
+    // 整个容器
     _buildGridTileList(int count) {
       final cols = (1+count)~/3;
       return new List<Container>.generate(
@@ -94,7 +91,7 @@ class ListContainer extends StatelessWidget {
       padding: EdgeInsets.all(eachItemPaddingValue),
       color: Colors.red,
       child: ListView(
-        children: _buildGridTileList(this.count)
+        children: _buildGridTileList(this.count+1)
       )
     );
   }
