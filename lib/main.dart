@@ -17,7 +17,34 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateMixin {
+
+  TabController controller;
+
+  @override
+    void initState() {
+      // TODO: implement initState
+      // 初始化程序调用
+      print('initState');
+      super.initState();
+      controller = new TabController(length: 4, vsync: this);
+    }
+
+  @override
+    void dispose() {
+      // TODO: implement dispose
+      print('dispose');
+      controller.dispose();
+      super.dispose();
+    }  
+
+
+
+
+
+
+
+
   // 相对间隔
   @override
   Widget build(BuildContext context) {
@@ -246,7 +273,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   )
                 ],
               ),
-              itemCard('FinnNavian', 'assets/ottoman.jpg', false)
+              itemCard(title: 'FinnNavian', imgPath: 'assets/ottoman.jpg', isFavorite:true),
+              itemCard(title: 'FinnNavian', imgPath: 'assets/anotherchair.jpg', isFavorite:false),
+              itemCard(title: 'FinnNavian', imgPath: 'assets/chair.jpg', isFavorite:false),
             ],
           )
         ],
@@ -256,7 +285,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
 
-  Widget itemCard(String title, String imgPath, bool isFavorite) {
+  Widget itemCard({String title, String imgPath, bool isFavorite}) {
     return Padding(
       padding: EdgeInsets.all(15),
       child: Container(
@@ -265,6 +294,7 @@ class _MyHomePageState extends State<MyHomePage> {
         color: Colors.white,
         child: Row(
           children: <Widget>[
+            // 图片
             Container(
               width: 140.0,
               height: 150.0,
@@ -275,19 +305,98 @@ class _MyHomePageState extends State<MyHomePage> {
                 )
               ),
             ),
-            SizedBox(width: 4.0),
-            Column(children: <Widget>[
-              Row(children: <Widget>[
-                Text(
-                  title,
-                  style: TextStyle(
-                    fontFamily: 'Quicksand',
-                    fontSize: 17.0,
-                    fontWeight: FontWeight.bold,
+            // 中间间隔
+            // SizedBox(width: 10.0),
+            // 右侧,竖向排列
+            Expanded(
+              child: Container(
+                // color: Colors.red,
+                padding: EdgeInsets.only(left: 10,right: 4),
+                child: Column(children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      Text(
+                        title,
+                        style: TextStyle(
+                          fontFamily: 'Quicksand',
+                          fontSize: 17.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(width: 45.0,),
+                      Material(
+                        elevation: isFavorite ? 2:0,
+                        borderRadius: BorderRadius.circular(20.0),
+                        child: Container(
+                          width: 40.0,
+                          height: 40.0,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20.0),
+                            color: isFavorite ? Colors.white : Colors.grey.withOpacity(0.2),
+                          ),
+                          child: Center(
+                            child: isFavorite ? Icon(
+                              Icons.favorite,
+                              color: Colors.red,
+                            ) : Icon(Icons.favorite)
+                          ),
+                        ),
+                      ),
+                    ]
                   ),
-                )
-              ])
-            ])
+                  SizedBox(height: 5),
+                  Container(
+                    // width: 220.0,
+                    child: Text(
+                      '   Scandinavian small sized double sofa imported full leather / Dale Italia oil wax leather black',
+                      textAlign: TextAlign.justify,
+                      style: TextStyle(
+                          fontFamily: 'Quicksand',
+                          color: Colors.grey,
+                          fontSize: 12.0),
+                    ),
+                  ),
+                  // 按钮
+                  Expanded(flex: 1,child: SizedBox(),),
+                  Row(
+                    mainAxisAlignment:MainAxisAlignment.end,
+                    children: <Widget>[
+                      MaterialButton(
+                        padding: EdgeInsets.all(0),
+                        color: Colors.yellow[600],
+                        child: Row(
+                          children: <Widget>[
+                            Container(
+                              padding: EdgeInsets.all(10),
+                              child: Text(
+                                '\$248',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                            Container(
+                              padding: EdgeInsets.all(10),
+                              color: Colors.yellow,
+                              child: Text(
+                                'Add to cart',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                        onPressed: (){
+                          print('123');
+                        },
+                      )
+                    ],
+                  )
+                ])
+              )
+            )
           ],
         ),
       ),
