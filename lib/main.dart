@@ -1,97 +1,91 @@
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
+
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('上传图片'),
-        ),
-        body: ListContainer(count: 9),
-      )
+      home: MyHomePage(),
     );
   }
 }
 
+class MyHomePage extends StatefulWidget {
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
 
-
-class ListContainer extends StatelessWidget {
+class _MyHomePageState extends State<MyHomePage> {
   // 相对间隔
-  double eachItemPaddingValue = 2.0;
-  ListContainer({@required this.count});
-  var count;
   @override
   Widget build(BuildContext context) {
-    double vw = MediaQuery.of(context).size.width;
-    // 图片容器
-    imageContent(int index, bool isBlock, [bool isAddBtn = false]) {
-      return new Expanded(
-        flex: 1,
-        child: Container(
-          height: ((vw - eachItemPaddingValue*2)/3),
-          padding: EdgeInsets.all(eachItemPaddingValue),
-          child: isBlock ? Image.asset(
-            'assets/${index}.jpg',
-            fit: BoxFit.cover,
-          ) : Container()
-        )
-      );
-    }
-
-    // 每一列
-    _buildGridTileRow(int cols, int total) {
-      List<Widget> ListMyWidgets(){
-        List<Widget> list = new List();
-        var colNum = total - (cols * 3);
-        if(colNum>3){
-          colNum = 3;
-        }
-        for (var i = 0; i < 3; i++) {
-          if(cols==0 && i==0){
-            list.add(new Expanded(
-              flex: 1,
-              child: Container(
-                height: ((vw - eachItemPaddingValue*2)/3),
-                // padding: EdgeInsets.all(eachItemPaddingValue),
-                child: Container(
-                  // color: Colors.white,
-                  child: Icon(
-                    Icons.add_box,
-                    color: Colors.white,
-                    size: 130.0,
+    return Scaffold(
+      body: ListView(
+        children: <Widget>[
+          Column(
+            children: <Widget>[
+              Stack(
+                children: <Widget>[
+                  Container(
+                    height: 250.0,
+                    color: Colors.yellow[600],
                   ),
-                )
+                  Positioned(
+                    bottom: 50.0,
+                    right: 130.0,
+                    child: Opacity(
+                      opacity: 0.3,
+                      child: Container(
+                        height: 400.0,
+                        width: 400.0,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(1000),
+                          color: Colors.yellow[300],
+                        ),
+                      ),
+                    ) 
+                  ),
+                  Positioned(
+                    bottom: 120.0,
+                    left: 230.0,
+                    child: Opacity(
+                      opacity: 0.3,
+                      child: Container(
+                        height: 250.0,
+                        width: 250.0,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(1000),
+                          color: Colors.yellow[300],
+                        ),
+                      ),
+                    ) 
+                  ),
+                  Column(
+                    children: <Widget>[
+                      SizedBox(width: 15),
+                      Container(
+                        alignment: Alignment.topLeft,
+                        height: 50.0,
+                        width: 50.0,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(1000),
+                          image: DecorationImage(
+                            image: AssetImage('assets/avatar.jpeg',)
+                          )
+                        ),
+                      ),
+                      SizedBox(
+                        width: MediaQuery.of(context),
+                      )
+                    ],
+                  )
+                ],
               )
-            ));
-          } else {
-            list.add(imageContent(3*cols+i,colNum>i));
-          }
-        }
-        return list;
-      }
-      return new Row(
-        children: ListMyWidgets(),
-      );
-    }
-
-    // 整个容器
-    _buildGridTileList(int count) {
-      final cols = (1+count)~/3;
-      return new List<Container>.generate(
-        cols, 
-        (int index) => new Container(         // 循环多少行
-          child: _buildGridTileRow(index , count)
-        )
-      );
-    }
-    return new Container(
-      padding: EdgeInsets.all(eachItemPaddingValue),
-      color: Colors.red,
-      child: ListView(
-        children: _buildGridTileList(this.count+1)
+            ],
+          )
+        ],
       )
     );
   }
