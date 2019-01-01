@@ -51,6 +51,15 @@ flutter:
    - assets/9.jpg
    - assets/10.jpg
    - assets/avatar.jpeg
+   - assets/sofa.png
+   - assets/wardrobe.png
+   - assets/desk.png
+   - assets/desks.png
+   - assets/dressers.png
+   - assets/wardrobe.png
+   - assets/ottoman.jpg
+
+   
   #  - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -64,10 +73,16 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
+  fonts:
+    - family: Quicksand
+      fonts:
+        - asset: assets/Quicksand-Regular.ttf
+        #   weight: 300
+        # - asset: assets/Quicksand-Light.ttf
+        #   weight: 500
+        # - asset: assets/Quicksand-Medium.ttf
+        #   weight: bold
+        # - asset: assets/Quicksand-Bold.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro
@@ -77,3 +92,14 @@ flutter:
   #         weight: 700
   #
   # For details regarding fonts from package dependencies,
+
+    # Include the Material Design fonts.
+    - family: Rock Salt
+      fonts:
+        - asset: assets/RockSalt-Regular.ttf
+    - family: VT323
+      fonts:
+        - asset: assets/VT323-Regular.ttf
+    - family: Ewert
+      fonts:
+        - asset: assets/Ewert-Regular.ttf
