@@ -8,9 +8,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: new AppBar(
-        title: new Center(
-          child: Text('My First App'),
-        ),
+        title: Text('Tap App'),
+        backgroundColor: Colors.teal,
+        bottom: new TabBar(
+          tabs:<Widget>[
+            new Tab(icon: Icon(Icons.access_alarm)),
+            new Tab(icon: Icon(Icons.access_time)),
+          ]
+        )
       ),
       body: new Center(
         child: new Text(
