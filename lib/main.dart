@@ -1,23 +1,25 @@
 import 'package:flutter/material.dart';
-import './firstPage.dart' as firstpage;
-import './secondPage.dart' as secondpage;
+import 'package:dio/dio.dart';
+import 'dart:io';
+
+
+
+
+var httpClient = new HttpClient();
 
 void main() => runApp(MyApp());
+
+var dio = new Dio();
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
-      theme: new ThemeData(
-        primarySwatch: Colors.teal
-      ),
-      home:  MyHomePage(),
+      home: MyHomePage(),
     );
   }
 }
-
-
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -25,52 +27,79 @@ class MyHomePage extends StatefulWidget {
 }
 
 
+
+
+
 class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateMixin {
-  TabController tapController;
+  String url = 'https://randomuser.me/api/';
 
-  @override
-  void initState() {
-    super.initState();
-    tapController = new TabController(vsync: this,length: 2);
+  dynamic info = {
+    'name': {
+      'first': '',
+      'last': '',
+    }
+  };
+  
+  Future<Object> makeRequest() async {
+    var response = await dio.get(Uri.encodeFull(url));
+    print("====================================");
+    List data;
+    data = response.data['results'];
+    print(data[0]['name']["first"]);
+    info = data[0];
+    return data[0]['name']["first"];
   }
 
-  @override
-  void dispose() {
-    tapController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: new AppBar(
-        title: Text('Tap App'),
-        backgroundColor: Colors.teal,
-        // bottom: new TabBar(
-        //   controller: tapController,
-        //   tabs:<Widget>[
-        //     new Tab(icon: Icon(Icons.access_alarm)),
-        //     new Tab(icon: Icon(Icons.account_balance)),
-        //   ]
-        // )
-      ),
-      bottomNavigationBar: new Material(
-        color: Colors.teal,
-        child: new TabBar(
-          controller: tapController,
-          tabs:<Widget>[
-            new Tab(icon: Icon(Icons.access_alarm)),
-            new Tab(icon: Icon(Icons.account_balance)),
+
+    Container infoContainer(info){
+      return Container(
+        color: Colors.red,
+        height: 100,
+        child: Column(
+          children: <Widget>[
+            Text('姓名:${info["name"]}'),
+            Row(
+              children: <Widget>[
+              ],
+            )
           ],
-        )
-      ),
-      body: new TabBarView(
-        controller: tapController,
-        children: <Widget>[
-          new firstpage.FirstPage(),
-          new secondpage.SecondPage(),
-        ],
-      )
+        ),
+      );
+    }
+
+
+    return Scaffold(
+      // appBar: Text('data'),
+      body:Container(
+        width: 420,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          // crossAxisAlignment: CrossAxisAlignment.end,
+          children: <Widget>[
+            infoContainer({'name': info?.name,}),
+            RaisedButton(
+              child: new Text('刷新'),
+              onPressed: makeRequest,
+            )
+          ],
+        ),
+      ) 
     );
   }
 }
+
+
+
+// class InfoContainer extends StatelessWidget {
+  
+//   InfoContainer(@required this.info);
+//   final info;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     // return ;
+//   }
+// }
