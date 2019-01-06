@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 // import 'dart:convert';
-
+import './about.dart';
 
 void main() => runApp(MyApp());
 
@@ -31,108 +31,48 @@ class _MyHomePageState extends State<MyHomePage>{
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: new Text('input widget'),
+        title: new Text('SideMenu'),
       ),
-      body: new Container(
-        margin: EdgeInsets.all(20),
-        child: new Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+      drawer: new Drawer(
+        child: ListView(
           children: <Widget>[
-            new TextField(
-              onChanged: (String textinput) {
-                setState(() {
-                  inputstr = textCtrl.text.length.toString();
-                  // inputstr = textinput;
-                });
-              },
-              controller: textCtrl,
+            new UserAccountsDrawerHeader(
+              accountName: new Text("Raja"),
+              accountEmail: new Text("pengliheng111@gmail.com"),
+              currentAccountPicture: new CircleAvatar(
+                backgroundImage: new NetworkImage('http://i.pravatar.cc/300'),
+              ),
             ),
-            new Text(inputstr),
-            new Switch(
-              value: enabled,
-              onChanged: (bool val) {
-                setState(() {
-                  enabled = val;
-                  print(enabled);
-                });
-              },
-              activeColor: Colors.green,
-              activeTrackColor: Colors.greenAccent[400],
+            new ListTile(
+              title: Text('About Page'),
+              onTap: () {
+                Navigator.of(context).pop();
+                Navigator.push(context, 
+                  new MaterialPageRoute(
+                    builder: (BuildContext context) => new AboutPage()
+                  )
+                );
+              }
             ),
-            new ExpansionPanelList(
-              expansionCallback: (i,bool val) {
-                setState(() {
-                  expanded = !val;
-                });
-              },
-              children: [
-                new ExpansionPanel(
-                  body: new Container(
-                    padding: EdgeInsets.all(20.0),
-                    child: new Text('Hello'),
-                  ),
-                  headerBuilder: (BuildContext context, bool val) {
-                    return new Center(
-                      child: Text(
-                        'Tap on me',
-                        style: new TextStyle(
-                          fontSize: 18.0
-                        )
-                      ),
-                    );
-                  },
-                  isExpanded: expanded,
-                ),
-              ],
+            new Divider(
+              color: Colors.black,
+              height: 5.0,
             ),
-            new Checkbox(
-              onChanged: (bool val){
-                setState(() {
-                  checked = val;
-                });
-              },
-              value: checked,
-              activeColor: Colors.purple
-            ),
-            new Row(
-              children: <Widget>[
-                new Radio(
-                  onChanged: (String val){
-                    setRadioValue(val);
-                  },
-                  activeColor: Colors.red,
-                  groupValue: radioval,
-                  value: "First"
-                ),
-                new Radio(
-                  onChanged: (String val){
-                    setRadioValue(val);
-                  },
-                  activeColor: Colors.red,
-                  groupValue: radioval,
-                  value: "Second"
-                ),
-                new Radio(
-                  onChanged: (String val){
-                    setRadioValue(val);
-                  },
-                  activeColor: Colors.red,
-                  groupValue: radioval,
-                  value: "Third"
-                ),
-              ],
+            new ListTile(
+              title: Text('About Page'),
+              onTap: () {
+                Navigator.of(context).pop();
+                Navigator.push(context, 
+                  new MaterialPageRoute(
+                    builder: (BuildContext context) => new AboutPage()
+                  )
+                );
+              }
             )
           ],
         ),
-      )
+      ),
     );
-  }
-
-  setRadioValue(String value) {
-    setState(() {
-          radioval = value;
-          print(radioval);
-        });
   }
 }
 
