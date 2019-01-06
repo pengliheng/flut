@@ -55,7 +55,6 @@ class _MyHomePageState extends State<MyHomePage>
       body: new ListView.builder(
         itemCount: data == null ? 0 : data.length,
         itemBuilder: (BuildContext context, i) {
-          print(context);
           return new ListTile(
             title: new Text(data[i]['name']["first"]),
             subtitle: new Text(data[i]['name']["first"]),
@@ -106,16 +105,49 @@ class SecondPage extends StatelessWidget {
               )
             ),
           ),
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Text(
-                '姓名:',
-                // style: FontWeight,
-              ),
-              Text('${data['name']['first']} ${data['name']['last']}')
-            ],
-          )
+          new Container(
+            child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Text('姓名:'),
+                    Text(
+                      '${data['name']['first']} ${data['name']['last']}',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Text('性别:'),
+                    Text(
+                      '${data["gender"]=='male'?'男':'女'}',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Text('email:'),
+                    Text(
+                      '${data["email"]}',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ]
+            ),
+          ),
         ],
       ),
     ) 
