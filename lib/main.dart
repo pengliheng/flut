@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'dart:io';
-
-
-
+// import 'dart:convert';
 
 var httpClient = new HttpClient();
 
@@ -26,80 +24,100 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
+class _MyHomePageState extends State<MyHomePage>
+    with SingleTickerProviderStateMixin {
+  String url = 'https://randomuser.me/api/?results=5';
+  List data;
 
-
-
-
-class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateMixin {
-  String url = 'https://randomuser.me/api/';
-
-  dynamic info = {
-    'name': {
-      'first': '',
-      'last': '',
-    }
-  };
-  
   Future<Object> makeRequest() async {
     var response = await dio.get(Uri.encodeFull(url));
-    print("====================================");
-    List data;
+
+    setState(() {
+      var extractata = response.data;
+      data = extractata['result'];
+    });
     data = response.data['results'];
-    print(data[0]['name']["first"]);
-    info = data[0];
-    return data[0]['name']["first"];
+    return data[0];
   }
 
+  @override
+  void initState() {
+    super.initState();
+    this.makeRequest();
+  }
 
   @override
   Widget build(BuildContext context) {
-
-    Container infoContainer(info){
-      return Container(
-        color: Colors.red,
-        height: 100,
-        child: Column(
-          children: <Widget>[
-            Text('姓名:${info["name"]}'),
-            Row(
-              children: <Widget>[
-              ],
-            )
-          ],
-        ),
-      );
-    }
-
-
     return Scaffold(
-      // appBar: Text('data'),
-      body:Container(
-        width: 420,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          // crossAxisAlignment: CrossAxisAlignment.end,
-          children: <Widget>[
-            infoContainer({'name': info?.name,}),
-            RaisedButton(
-              child: new Text('刷新'),
-              onPressed: makeRequest,
-            )
-          ],
-        ),
-      ) 
+      appBar: AppBar(
+        title: new Text('列表页面'),
+      ),
+      body: new ListView.builder(
+        itemCount: data == null ? 0 : data.length,
+        itemBuilder: (BuildContext context, i) {
+          print(context);
+          return new ListTile(
+            title: new Text(data[i]['name']["first"]),
+            subtitle: new Text(data[i]['name']["first"]),
+            leading: new CircleAvatar(
+              backgroundImage: new NetworkImage(data[i]['picture']['thumbnail']),
+            ),
+            onTap: () {
+              Navigator.push(
+                context,
+                new MaterialPageRoute(
+                  builder: (BuildContext context) =>new SecondPage(data[i])
+                )
+              );
+            },
+          );
+        },
+      )
     );
   }
 }
-
-
-
-// class InfoContainer extends StatelessWidget {
-  
-//   InfoContainer(@required this.info);
-//   final info;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     // return ;
-//   }
-// }
+class SecondPage extends StatelessWidget {
+  SecondPage(this.data);
+  final data;
+  @override
+  Widget build(BuildContext context)=>new Scaffold(
+    appBar: AppBar(
+      title: Text('详情页面'),
+    ),
+    body: new Center(
+      child: new Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          new Container(
+            width: 150,
+            height: 150,
+            decoration: new BoxDecoration(
+              color: Colors.red,
+              image: new DecorationImage(
+                image: new NetworkImage(data["picture"]['large']),
+                fit: BoxFit.cover
+              ),
+              borderRadius: new BorderRadius.all(new Radius.circular(75.0)),
+              border: new Border.all(
+                color: Colors.red,
+                width: 4.0,
+              )
+            ),
+          ),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Text(
+                '姓名:',
+                // style: FontWeight,
+              ),
+              Text('${data['name']['first']} ${data['name']['last']}')
+            ],
+          )
+        ],
+      ),
+    ) 
+  );
+}
