@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:dio/dio.dart';
-import 'dart:io';
 // import 'dart:convert';
 
-var httpClient = new HttpClient();
 
 void main() => runApp(MyApp());
 
-var dio = new Dio();
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -24,132 +20,120 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage>
-    with SingleTickerProviderStateMixin {
-  String url = 'https://randomuser.me/api/?results=5';
-  List data;
-
-  Future<Object> makeRequest() async {
-    var response = await dio.get(Uri.encodeFull(url));
-
-    setState(() {
-      var extractata = response.data;
-      data = extractata['result'];
-    });
-    data = response.data['results'];
-    return data[0];
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    this.makeRequest();
-  }
-
+class _MyHomePageState extends State<MyHomePage>{
+  final textCtrl = new TextEditingController();
+  String inputstr;
+  String radioval;
+  bool enabled = false;
+  bool expanded = false;
+  bool checked = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: new Text('列表页面'),
+        title: new Text('input widget'),
       ),
-      body: new ListView.builder(
-        itemCount: data == null ? 0 : data.length,
-        itemBuilder: (BuildContext context, i) {
-          return new ListTile(
-            title: new Text(data[i]['name']["first"]),
-            subtitle: new Text(data[i]['name']["first"]),
-            leading: new CircleAvatar(
-              backgroundImage: new NetworkImage(data[i]['picture']['thumbnail']),
+      body: new Container(
+        margin: EdgeInsets.all(20),
+        child: new Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            new TextField(
+              onChanged: (String textinput) {
+                setState(() {
+                  inputstr = textCtrl.text.length.toString();
+                  // inputstr = textinput;
+                });
+              },
+              controller: textCtrl,
             ),
-            onTap: () {
-              Navigator.push(
-                context,
-                new MaterialPageRoute(
-                  builder: (BuildContext context) =>new SecondPage(data[i])
-                )
-              );
-            },
-          );
-        },
+            new Text(inputstr),
+            new Switch(
+              value: enabled,
+              onChanged: (bool val) {
+                setState(() {
+                  enabled = val;
+                  print(enabled);
+                });
+              },
+              activeColor: Colors.green,
+              activeTrackColor: Colors.greenAccent[400],
+            ),
+            new ExpansionPanelList(
+              expansionCallback: (i,bool val) {
+                setState(() {
+                  expanded = !val;
+                });
+              },
+              children: [
+                new ExpansionPanel(
+                  body: new Container(
+                    padding: EdgeInsets.all(20.0),
+                    child: new Text('Hello'),
+                  ),
+                  headerBuilder: (BuildContext context, bool val) {
+                    return new Center(
+                      child: Text(
+                        'Tap on me',
+                        style: new TextStyle(
+                          fontSize: 18.0
+                        )
+                      ),
+                    );
+                  },
+                  isExpanded: expanded,
+                ),
+              ],
+            ),
+            new Checkbox(
+              onChanged: (bool val){
+                setState(() {
+                  checked = val;
+                });
+              },
+              value: checked,
+              activeColor: Colors.purple
+            ),
+            new Row(
+              children: <Widget>[
+                new Radio(
+                  onChanged: (String val){
+                    setRadioValue(val);
+                  },
+                  activeColor: Colors.red,
+                  groupValue: radioval,
+                  value: "First"
+                ),
+                new Radio(
+                  onChanged: (String val){
+                    setRadioValue(val);
+                  },
+                  activeColor: Colors.red,
+                  groupValue: radioval,
+                  value: "Second"
+                ),
+                new Radio(
+                  onChanged: (String val){
+                    setRadioValue(val);
+                  },
+                  activeColor: Colors.red,
+                  groupValue: radioval,
+                  value: "Third"
+                ),
+              ],
+            )
+          ],
+        ),
       )
     );
   }
+
+  setRadioValue(String value) {
+    setState(() {
+          radioval = value;
+          print(radioval);
+        });
+  }
 }
-class SecondPage extends StatelessWidget {
-  SecondPage(this.data);
-  final data;
-  @override
-  Widget build(BuildContext context)=>new Scaffold(
-    appBar: AppBar(
-      title: Text('详情页面'),
-    ),
-    body: new Center(
-      child: new Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          new Container(
-            width: 150,
-            height: 150,
-            decoration: new BoxDecoration(
-              color: Colors.red,
-              image: new DecorationImage(
-                image: new NetworkImage(data["picture"]['large']),
-                fit: BoxFit.cover
-              ),
-              borderRadius: new BorderRadius.all(new Radius.circular(75.0)),
-              border: new Border.all(
-                color: Colors.red,
-                width: 4.0,
-              )
-            ),
-          ),
-          new Container(
-            child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Text('姓名:'),
-                    Text(
-                      '${data['name']['first']} ${data['name']['last']}',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Text('性别:'),
-                    Text(
-                      '${data["gender"]=='male'?'男':'女'}',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Text('email:'),
-                    Text(
-                      '${data["email"]}',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-              ]
-            ),
-          ),
-        ],
-      ),
-    ) 
-  );
-}
+
+
